@@ -44,12 +44,12 @@ def write_xls(spots):
         for day in days:
             try:
                 if count1 == 0:
-                    if day == "thursday" or day == "saturday" or day == "sunday":
+                    if day == "thursday" or day == "sunday":
                         available_hours += day[0] + day[1] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
                     else:
                         available_hours += day[0] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
                 else:
-                    if day == "thursday" or day == "saturday" or day == "sunday":
+                    if day == "thursday" or day == "sunday":
                         available_hours += ', ' + day[0] + day[1] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
                     else:
                         available_hours += ', ' + day[0] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
@@ -101,12 +101,12 @@ def write_csv(spots):
         for day in days:
             try:
                 if count1 == 0:
-                    if day == "thursday" or day == "saturday" or day == "sunday":
+                    if day == "thursday" or day == "sunday":
                         available_hours += day[0] + day[1] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
                     else:
                         available_hours += day[0] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
                 else:
-                    if day == "thursday" or day == "saturday" or day == "sunday":
+                    if day == "thursday" or day == "sunday":
                         available_hours += ', ' + day[0] + day[1] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
                     else:
                         available_hours += ', ' + day[0] + ': ' + spot['available_hours'][day][0][0] + '-' + spot['available_hours'][day][0][1]
@@ -122,8 +122,8 @@ def write_csv(spots):
 def file_to_json(docfile):
     if docfile.content_type == 'text/csv':
         data = csv.DictReader(docfile.file)
-    elif docfile.content_type == 'application/vnd.ms-excel':
-        #convert to dict
+    elif docfile.content_type == 'application/vnd.ms-excel' or docfile.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+        #convert .xls or .xlsx to dict
         workbook = xlrd.open_workbook(file_contents=docfile.read())
         sheet = workbook.sheet_by_index(0)
         keys = sheet.row_values(0)
